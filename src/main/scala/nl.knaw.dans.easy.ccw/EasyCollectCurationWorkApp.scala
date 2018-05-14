@@ -17,7 +17,7 @@ package nl.knaw.dans.easy.ccw
 
 import scala.util.{ Success, Try }
 
-class EasyCollectionCurationWorkApp(configuration: Configuration)  {
+class EasyCollectCurationWorkApp(configuration: Configuration)  {
 
   def run(): Try[Unit] = {
 

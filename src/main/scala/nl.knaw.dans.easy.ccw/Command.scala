@@ -27,7 +27,7 @@ import scala.util.{ Failure, Try }
 
 object Command extends App with DebugEnhancedLogging {
   val configuration = Configuration(Paths.get(System.getProperty("app.home")))
-  val app = new EasyCollectionCurationWorkApp(configuration)
+  val app = new EasyCollectCurationWorkApp(configuration)
   app.run()
     .doIfSuccess { _ => Console.err.println(s"OK") }
     .doIfFailure { case e => logger.error(e.getMessage, e) }
