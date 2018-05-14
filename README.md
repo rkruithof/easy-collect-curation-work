@@ -1,16 +1,12 @@
 easy-collection-curation-work
-===========
+=============================
 [![Build Status](https://travis-ci.org/DANS-KNAW/easy-collection-curation-work.png?branch=master)](https://travis-ci.org/DANS-KNAW/easy-collection-curation-work)
-
-<!-- Remove this comment and extend the descriptions below -->
 
 
 SYNOPSIS
 --------
 
-    easy-collection-curation-work (synopsis of command line parameters)
-    easy-collection-curation-work (... possibly multiple lines for subcommands)
-
+    easy-collection-curation-work
 
 DESCRIPTION
 -----------
@@ -21,36 +17,15 @@ Job that collects the curated deposits from the data managers' personal curation
 ARGUMENTS
 ---------
 
-    Options:
-
-        --help      Show help message
-        --version   Show version of this program
-
-    Subcommand: run-service - Starts EASY Collection Curation Work as a daemon that services HTTP requests
-        --help   Show help message
-    ---
-
-EXAMPLES
---------
-
-    easy-collection-curation-work -o value
-
+None
 
 INSTALLATION AND CONFIGURATION
 ------------------------------
+The preferred way of install this module is using the RPM package. This will install the binaries to
+`/opt/dans.knaw.nl/easy-collect-curation-work`, the configuration files to `/etc/opt/dans.knaw.nl/easy-collect-curation-work`,
 
-
-1. Unzip the tarball to a directory of your choice, typically `/usr/local/`
-2. A new directory called easy-collection-curation-work-<version> will be created
-3. Add the command script to your `PATH` environment variable by creating a symbolic link to it from a directory that is
-   on the path, e.g. 
-   
-        ln -s /usr/local/easy-collection-curation-work-<version>/bin/easy-collection-curation-work /usr/bin
-
-
-
-General configuration settings can be set in `cfg/application.properties` and logging can be configured
-in `cfg/logback.xml`. The available settings are explained in comments in aforementioned files.
+If you are on a system that does not support RPM, you can use the tarball. You will need to copy the
+service scripts to the appropiate locations yourself.
 
 
 BUILDING FROM SOURCE
