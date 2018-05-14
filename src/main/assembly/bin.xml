@@ -40,9 +40,9 @@
             <directory>${project.basedir}/src/main/assembly/dist/bin</directory>
             <outputDirectory>bin</outputDirectory>
             <includes>
-                <include>easy-collection-curation-work</include>
-                <include>easy-collection-curation-work-service-start</include>
-                <include>easy-collection-curation-work-initd.sh</include>
+                <include>easy-collect-curation-work</include>
+                <include>easy-collect-curation-work-service-start</include>
+                <include>easy-collect-curation-work-initd.sh</include>
             </includes>
             <fileMode>0755</fileMode>
         </fileSet>

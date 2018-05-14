@@ -1,12 +1,12 @@
-easy-collection-curation-work
-=============================
-[![Build Status](https://travis-ci.org/DANS-KNAW/easy-collection-curation-work.png?branch=master)](https://travis-ci.org/DANS-KNAW/easy-collection-curation-work)
+easy-collect-curation-work
+==========================
+[![Build Status](https://travis-ci.org/DANS-KNAW/easy-collect-curation-work.png?branch=master)](https://travis-ci.org/DANS-KNAW/easy-collect-curation-work)
 
 
 SYNOPSIS
 --------
 
-    easy-collection-curation-work
+    easy-collect-curation-work
 
 DESCRIPTION
 -----------
@@ -38,6 +38,6 @@ Prerequisites:
 
 Steps:
 
-        git clone https://github.com/DANS-KNAW/easy-collection-curation-work.git
-        cd easy-collection-curation-work
+        git clone https://github.com/DANS-KNAW/easy-collect-curation-work.git
+        cd easy-collect-curation-work
         mvn install

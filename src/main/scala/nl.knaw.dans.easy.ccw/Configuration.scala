@@ -28,7 +28,7 @@ object Configuration {
 
   def apply(home: Path): Configuration = {
     val cfgPath = Seq(
-      Paths.get(s"/etc/opt/dans.knaw.nl/easy-collection-curation-work/"),
+      Paths.get(s"/etc/opt/dans.knaw.nl/easy-collect-curation-work/"),
       home.resolve("cfg"))
       .find(Files.exists(_))
       .getOrElse { throw new IllegalStateException("No configuration directory found") }

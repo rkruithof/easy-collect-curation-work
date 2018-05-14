@@ -17,5 +17,5 @@
 
 echo -n "Pre-creating log..."
 TEMPDIR=data
-touch $TEMPDIR/easy-collection-curation-work.log
+touch $TEMPDIR/easy-collect-curation-work.log
 echo "OK"

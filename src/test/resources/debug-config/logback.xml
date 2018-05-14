@@ -6,9 +6,9 @@
         </encoder>
     </appender>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>data/easy-collection-curation-work.log</file>
+		<file>data/easy-collect-curation-work.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>data/easy-collection-curation-work.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>data/easy-collect-curation-work.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 		<encoder>
