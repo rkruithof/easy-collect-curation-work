@@ -15,17 +15,67 @@
  */
 package nl.knaw.dans.easy.ccw
 
-import scala.util.{ Success, Try }
+import better.files.File
+import nl.knaw.dans.lib.logging.DebugEnhancedLogging
+import org.apache.commons.configuration.PropertiesConfiguration
 
-class EasyCollectCurationWorkApp(configuration: Configuration)  {
+import scala.collection.JavaConverters._
+import scala.language.postfixOps
+import scala.util.Try
 
-  def run(): Try[Unit] = {
+class EasyCollectCurationWorkApp(commonCurationArea: File, managerCurationArea: DatamanagerId => File, datamanagerProperties: PropertiesConfiguration) extends DebugEnhancedLogging {
 
-
-
-
-    ???
+  private def isCurated(depositProperties: PropertiesConfiguration): Boolean = {
+    depositProperties.getBoolean("curation.performed")
   }
 
+  private def requiredPropertiesPresent(datamanager: DatamanagerId, deposit: File, depositProperties: PropertiesConfiguration, keys: List[String]): Boolean = {
+    val invalidKeys = keys.filter(key => depositProperties.getString(key, "").isEmpty)
+    invalidKeys.foreach(key => logger.error(s"Deposit ${ deposit.name }, curated by $datamanager, has no value for property '$key'"))
+    invalidKeys.isEmpty
+  }
 
+  private def correctState(datamanager: DatamanagerId, deposit: File, state: String): Boolean = {
+    if (state != "SUBMITTED" && state != "REJECTED") {
+      logger.error(s"Deposit ${ deposit.name }, curated by $datamanager, is curated, but is in state $state")
+      false
+    }
+    else
+      true
+  }
+
+  private def correctProperties(datamanager: DatamanagerId, deposit: File, depositProperties: PropertiesConfiguration, state: String): Boolean = {
+    val propertiesToCheck = List("state.description", "curation.datamanager.userId", "curation.datamanager.email")
+    val isCorrectState = correctState(datamanager, deposit, state)
+    requiredPropertiesPresent(datamanager, deposit, depositProperties, propertiesToCheck) && isCorrectState
+  }
+
+  private def collectDeposit(datamanager: DatamanagerId, deposit: File): Unit = {
+    val depositProperties = new PropertiesConfiguration(deposit / "deposit.properties" toJava)
+    val state = depositProperties.getString("state.label", "")
+
+    if (isCurated(depositProperties) && correctProperties(datamanager, deposit, depositProperties, state)) {
+      deposit moveTo commonCurationArea / deposit.name
+      logger.info(s"Deposit ${ deposit.name } ($state), curated by $datamanager, has been moved to common curation area")
+    }
+  }
+
+  private def collectDatamanagersCuratedDeposits(datamanager: DatamanagerId, dir: File): Unit = {
+    dir.list.foreach(deposit => collectDeposit(datamanager, deposit))
+  }
+
+  def getDatamanagers: List[DatamanagerId] = {
+    datamanagerProperties.getKeys.asScala.toList.map(key => key.substring(0, key.indexOf('.'))).distinct
+  }
+
+  def run(): Try[Unit] = Try {
+    logger.info(s"-- Collection of curated deposits started --")
+    getDatamanagers.foreach(datamanager => {
+      val curationDirectory = managerCurationArea(datamanager)
+      if (curationDirectory.exists)
+        collectDatamanagersCuratedDeposits(datamanager, curationDirectory)
+    })
+    logger.info(s"-- Collection of curated deposits completed --")
+
+  }
 }
